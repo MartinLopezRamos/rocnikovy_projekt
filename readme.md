@@ -56,6 +56,11 @@ Hra funguje na podobném principu jako klasické point-and-click adventury:
 
 ---
 
+## Změny provedéné 15.04.2026
+- Vytvoření základů mapy
+- Vytvoření základní animace
+- + další drobné úpravy
+
 ## ▶️ Spuštění projektu
 
 ```bash
