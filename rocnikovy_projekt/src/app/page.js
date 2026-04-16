@@ -1,6 +1,12 @@
 "use client";
 import Link from "next/link";
+import { Cinzel } from "next/font/google";
 import { useState, useEffect } from "react";
+
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+});
 
 const menuItems = [
   { id: "new",      label: "Nová hra",    icon: "⚔",  description: "Začni své dobrodružství" },
@@ -28,27 +34,7 @@ export default function Home() {
   }, []);
 
   return (
-    <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cinzel+Decorative:wght@700&family=Crimson+Text:ital@1&display=swap');
-        .font-cinzel { font-family: 'Cinzel', serif; }
-        .font-cinzel-deco { font-family: 'Cinzel Decorative', serif; }
-        .font-crimson { font-family: 'Crimson Text', serif; }
-        @keyframes floatUp {
-          0%   { opacity: 0; transform: translateY(0); }
-          10%  { opacity: 0.6; }
-          90%  { opacity: 0.2; }
-          100% { opacity: 0; transform: translateY(-100vh); }
-        }
-        .particle { animation: floatUp linear infinite; }
-        @keyframes blink {
-          0%, 100% { opacity: 0.4; }
-          50%  { opacity: 1; }
-        }
-        .blink { animation: blink 2.5s ease-in-out infinite; }
-      `}</style>
-
-      <div className="relative w-screen h-screen overflow-hidden bg-[#050810] flex items-center justify-center">
+      <div className={`${cinzel.className}relative w-screen h-screen overflow-hidden bg-[#050810] flex items-center justify-center`}>
 
         {/* Background layers */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_100%,#0d1a3a,transparent),radial-gradient(ellipse_60%_50%_at_80%_20%,#0a1228,transparent)]" />
@@ -80,7 +66,7 @@ export default function Home() {
           </p>
 
           <h1
-            className="font-cinzel-deco text-5xl md:text-7xl font-bold text-center leading-tight tracking-wide text-yellow-200"
+            className={`${cinzel.className} text-5xl md:text-7xl font-bold text-center leading-tight tracking-wide text-yellow-200`}
             style={{ textShadow: "0 0 40px rgba(201,168,76,0.5), 0 0 80px rgba(201,168,76,0.2)" }}
           >
             MOZKY JAKO<br />HOUBY
@@ -133,6 +119,5 @@ export default function Home() {
           </nav>
         </div>
       </div>
-    </>
   );
 }
