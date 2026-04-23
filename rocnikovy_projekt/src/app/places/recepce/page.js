@@ -3,7 +3,7 @@ import Link from "next/link"
 export default function Home() {
     return(
         <>
-            <Link href="/" className="fixed z-999 bg-[#E6B30E] w-12 h-12 flex justify-center items-center ml-10 mt-10 rounded-full">
+            <Link href="/hra" className="fixed z-999 bg-[#E6B30E] w-12 h-12 flex justify-center items-center ml-10 mt-10 rounded-full">
                     <div className="relative w-8 h-8 mr-1">
                         <Image src="/sipka.png" alt="arrow" fill className="object-contain brightness-200"></Image>
                     </div>
@@ -11,6 +11,9 @@ export default function Home() {
             <div className="h-[100svh] w-[100%] flex justify-center items-center bg-[#071321]">
                 <div className="h-[768px] w-[1408px] rounded-[40px] p-10 border-blue-400 border-3 flex justify-center items-center
                     bg-[url('/recepce.png')] bg-center bg-cover"></div>
+            </div>
+            <div className="w-60 mt-90 ml-90 absolute">
+                <Image src="/bolek_edited.png" alt="bolek" width={300} height={300} className="object-contain"></Image>
             </div>
         </>
     )
