@@ -3,7 +3,7 @@ import Link from "next/link"
 export default function Home() {
     return(
         <>
-            <div className="absolute z-[999999999] h-[100svh] w-[100%] flex justify-center items-center">
+            <div className="absolute z-[998] h-[100svh] w-[100%] flex justify-center items-center">
                 <Link href="/places/recepce" className="w-10 h-10 bg-white absolute cursor-pointer opacity-0 mt-77 mr-105 hover:opacity-40">1</Link>
                 <Link href="/places/cardio" className="w-10 h-10 bg-white absolute cursor-pointer mb-43 mr-102 opacity-0 hover:opacity-40">2</Link>
                 <Link href="/places/volne_vahy" className="w-10 h-10 bg-white absolute cursor-pointer ml-52 mt-7 opacity-0 hover:opacity-40">3</Link>

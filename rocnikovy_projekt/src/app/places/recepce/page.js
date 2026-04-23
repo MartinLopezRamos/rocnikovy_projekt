@@ -13,7 +13,7 @@ export default function Home() {
                     bg-[url('/recepce.png')] bg-center bg-cover"></div>
             </div>
             <div className="w-60 mt-90 ml-90 absolute">
-                <Image src="/bolek_edited.png" alt="bolek" width={300} height={300} className="object-contain"></Image>
+                <Image src="/bolek_upgrade.png" alt="bolek" width={300} height={300} className="object-contain"></Image>
             </div>
         </>
     )
