@@ -12,6 +12,9 @@ export default function Home() {
                 <div className="h-[768px] w-[1408px] rounded-[40px] p-10 border-blue-400 border-3 flex justify-center items-center
                     bg-[url('/satna.png')] bg-center bg-cover"></div>
             </div>
+            <div className="w-31 mt-102 ml-200 absolute">
+                <Image src="/sedet.png" alt="bolek" width={300} height={300} className="object-contain"></Image>
+            </div>
         </>
     )
 }
