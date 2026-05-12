@@ -10,7 +10,10 @@ export default function Home() {
                 </Link>
             <div className="h-[100svh] w-[100%] flex justify-center items-center bg-[#071321]">
                 <div className="h-[768px] w-[1408px] rounded-[40px] p-10 border-blue-400 border-3 flex justify-center items-center
-                    bg-[url('/skupinova.png')] bg-center bg-cover"></div>
+                    bg-[url('/skupinova_lekce.png')] bg-center bg-cover"></div>
+            </div>
+            <div className="w-60 mt-100 ml-220 absolute z-[200]">
+                <Image src="/bolek_ucitel_best.png" alt="bolek" width={300} height={300} className="object-contain"></Image>
             </div>
         </>
     )
