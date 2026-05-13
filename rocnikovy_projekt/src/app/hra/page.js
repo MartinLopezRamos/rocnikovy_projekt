@@ -11,6 +11,15 @@ export default function Home() {
                 <Link href="/places/satna" className="w-10 h-10 bg-white absolute cursor-pointer opacity-0 mb-83 ml-118 hover:opacity-40"></Link>
                 <Link href="/places/restroom" className="w-10 h-10 bg-white absolute cursor-pointer opacity-0 mt-113 mr-29 hover:opacity-40"></Link>
                 <Link href="/places/funkcni" className="w-10 h-10 bg-white absolute cursor-pointer opacity-0 ml-179 mb-32 hover:opacity-40"></Link>
+                <>
+                    <Link href="/places/recepce" className="w-10 h-10 bg-white absolute cursor-pointer opacity-0 mt-63 mr-311 hover:opacity-40"></Link>
+                    <Link href="/places/cardio" className="w-10 h-10 bg-white absolute cursor-pointer mt-87 mr-311 opacity-0 hover:opacity-40"></Link>
+                    <Link href="/places/volne_vahy" className="w-10 h-10 bg-white absolute cursor-pointer mr-311 mt-110 opacity-0 hover:opacity-40"></Link>
+                    <Link href="/places/skupinova" className="w-10 h-10 bg-white absolute cursor-pointer opacity-0 ml-242 mt-59 hover:opacity-40"></Link>
+                    <Link href="/places/satna" className="w-10 h-10 bg-white absolute cursor-pointer opacity-0 mt-107 ml-242 hover:opacity-40"></Link>
+                    <Link href="/places/restroom" className="w-10 h-10 bg-white absolute cursor-pointer opacity-0 mt-155 ml-242 hover:opacity-40"></Link>
+                    <Link href="/places/funkcni" className="w-10 h-10 bg-white absolute cursor-pointer opacity-0 mr-311 mt-133 hover:opacity-40"></Link>
+                </>
             </div>
             <Nav/>
             <div className="h-[100svh] w-[100%] flex justify-center items-center bg-[#071321]">
