@@ -1,12 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Cinzel } from "next/font/google";
 import { useState, useEffect } from "react";
-
-const cinzel = Cinzel({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-});
 
 const menuItems = [
   { id: "new",      label: "Nová hra",    icon: "⚔",  description: "Začni své dobrodružství" },
@@ -34,14 +28,12 @@ export default function Home() {
   }, []);
 
   return (
-      <div className={`${cinzel.className}relative w-screen h-screen overflow-hidden bg-[#050810] flex items-center justify-center`}>
+      <div className="relative w-screen h-screen overflow-hidden bg-[#050810] flex items-center justify-center">
 
-        {/* Background layers */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_100%,#0d1a3a,transparent),radial-gradient(ellipse_60%_50%_at_80%_20%,#0a1228,transparent)]" />
         <div className="absolute inset-0" style={{ backgroundImage: "linear-gradient(rgba(201,168,76,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.03) 1px,transparent 1px)", backgroundSize: "60px 60px" }} />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_50%,transparent_40%,rgba(0,0,0,0.85)_100%)]" />
 
-        {/* Particles */}
         {particles.map((p) => (
           <div
             key={p.id}
@@ -61,17 +53,17 @@ export default function Home() {
 
         <div className={`relative z-10 flex flex-col items-center transition-all duration-[1200ms] ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
 
-          <p className="font-cinzel text-[10px] tracking-[0.5em] text-yellow-800 mb-3 uppercase">
+          <p className="text-[0.625rem] tracking-[0.5em] text-yellow-800 mb-3 uppercase">
             — Ročníkový projekt —
           </p>
 
           <h1
-            className={`${cinzel.className} text-5xl md:text-7xl font-bold text-center leading-tight tracking-wide text-yellow-200`}
+            className="text-5xl md:text-7xl font-bold text-center leading-tight tracking-wide text-yellow-200"
             style={{ textShadow: "0 0 40px rgba(201,168,76,0.5), 0 0 80px rgba(201,168,76,0.2)" }}
           >
             MOZKY JAKO<br />HOUBY
           </h1>
-          <p className="font-cinzel text-[11px] tracking-[0.55em] text-yellow-800 uppercase mt-2 mb-10">
+          <p className="text-[0.6875rem] tracking-[0.55em] text-yellow-800 uppercase mt-2 mb-10">
             Martin López Ramos
           </p>
 
@@ -102,17 +94,17 @@ export default function Home() {
 
                   <div className="flex-1">
                     <span
-                      className={`font-cinzel block text-[13px] font-semibold tracking-widest uppercase transition-all duration-200 ${active ? "text-yellow-200" : "text-slate-500"}`}
+                      className={`block text-[0.8125rem] font-semibold tracking-widest uppercase transition-all duration-200 ${active ? "text-yellow-200" : "text-slate-500"}`}
                       style={active ? { textShadow: "0 0 20px rgba(201,168,76,0.5)" } : {}}
                     >
                       {item.label}
                     </span>
-                    <span className={`font-crimson italic text-[11px] tracking-wide transition-all duration-200 ${active ? "text-yellow-800" : "text-transparent"}`}>
+                    <span className={`italic text-[0.6875rem] tracking-wide transition-all duration-200 ${active ? "text-yellow-800" : "text-transparent"}`}>
                       {item.description}
                     </span>
                   </div>
 
-                  <span className={`text-[9px] text-yellow-500 transition-all duration-200 ${active ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2"}`}>▶</span>
+                  <span className={`text-[0.5625rem] text-yellow-500 transition-all duration-200 ${active ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2"}`}>▶</span>
                 </Link>
               );
             })}
