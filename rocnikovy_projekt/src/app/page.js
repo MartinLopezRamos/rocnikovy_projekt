@@ -28,7 +28,7 @@ export default function Home() {
   }, []);
 
   return (
-      <div className="relative w-screen h-screen overflow-hidden bg-[#050810] flex items-center justify-center">
+      <div className="relative w-full h-full overflow-hidden bg-[#050810] flex items-center justify-center">
 
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_100%,#0d1a3a,transparent),radial-gradient(ellipse_60%_50%_at_80%_20%,#0a1228,transparent)]" />
         <div className="absolute inset-0" style={{ backgroundImage: "linear-gradient(rgba(201,168,76,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.03) 1px,transparent 1px)", backgroundSize: "60px 60px" }} />
