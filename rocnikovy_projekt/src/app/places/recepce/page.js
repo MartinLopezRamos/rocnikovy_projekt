@@ -5,11 +5,25 @@ import Nav from "@/components/Nav"
 
 export default function Home() {
     const [hasMoney, setHasMoney] = useState(true)
+    const [hasHat, setHasHat] = useState(false)
+    const [showRedButton, setShowRedButton] = useState(false)
     const [showDialogue, setShowDialogue] = useState(false)
 
     const toggleDialogue = (e) => {
         e.stopPropagation()
         setShowDialogue((prev) => !prev)
+    }
+
+    const currentBackground = () => {
+        if (showRedButton) {
+            return "bg-[url('/no_money_narozky_button.png')]"
+        }
+
+        if (hasMoney) {
+            return "bg-[url('/money_narozky.png')]"
+        }
+
+        return "bg-[url('/no_money_narozky.png')]"
     }
 
     return (
@@ -21,10 +35,7 @@ export default function Home() {
 
             <div className="flex-1 flex justify-center items-center mt-[-10rem]">
                 <div
-                    className={`h-[40rem] w-[72rem] rounded-[2rem] ml-auto mr-6 border-blue-400 border-[0.25rem] flex justify-center items-center bg-center bg-cover ${hasMoney
-                            ? "bg-[url('/money_narozky.png')]"
-                            : "bg-[url('/no_money_narozky.png')]"
-                        }`}
+                    className={`h-[40rem] w-[72rem] rounded-[2rem] ml-auto mr-6 border-blue-400 border-[0.25rem] flex justify-center items-center bg-center bg-cover ${currentBackground()}`}
                 >
                     {/* bankovka */}
                     {hasMoney && (
@@ -33,6 +44,7 @@ export default function Home() {
                             onClick={(e) => {
                                 e.stopPropagation()
                                 setHasMoney(false)
+                                setHasHat(true)
                             }}
                             className="w-21 h-10 absolute cursor-pointer opacity-0 mt-[18.9rem] mr-[44.7rem]"
                         />
@@ -51,6 +63,28 @@ export default function Home() {
                         onClick={toggleDialogue}
                         className="w-28 h-48 absolute cursor-pointer opacity-0 mb-[0rem] ml-[32rem]"
                     />
+
+                    {/* cepice */}
+                    {hasHat && !showRedButton && (
+                        <button
+                            id="cepice"
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                setHasHat(false)
+                                setShowRedButton(true)
+                            }}
+                            className="w-17 h-17 absolute cursor-pointer opacity-0 mt-[5rem] ml-[67rem]"
+                        />
+                    )}
+
+                    {/* red button */}
+                    {showRedButton && (
+                        <button
+                            id="red_button"
+                            onClick={toggleDialogue}
+                            className="w-13 h-13 absolute cursor-pointer opacity-0 mt-[6rem] ml-[68rem]"
+                        />
+                    )}
                 </div>
             </div>
 

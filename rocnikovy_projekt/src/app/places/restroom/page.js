@@ -5,6 +5,7 @@ import Nav from "@/components/Nav"
 
 export default function Home() {
     const [showDialogue, setShowDialogue] = useState(false)
+    const [binRemoved, setBinRemoved] = useState(false)
 
     const toggleDialogue = (e) => {
         e.stopPropagation()
@@ -19,8 +20,12 @@ export default function Home() {
             <Nav backHref="/hra" />
 
             <div className="flex-1 flex justify-center items-center mt-[-10rem]">
-                <div className="h-[40rem] w-[72rem] rounded-[2rem] ml-auto mr-6 border-blue-400 border-[0.25rem] flex justify-center items-center bg-[url('/restroom.png')] bg-center bg-cover">
-
+                <div
+                    className={`h-[40rem] w-[72rem] rounded-[2rem] ml-auto mr-6 border-blue-400 border-[0.25rem] flex justify-center items-center bg-center bg-cover ${binRemoved
+                        ? "bg-[url('/restroom_changed.png')]"
+                        : "bg-[url('/restroom.png')]"
+                        }`}
+                >
                     <button
                         id="michael_olise"
                         onClick={toggleDialogue}
@@ -32,6 +37,27 @@ export default function Home() {
                         onClick={toggleDialogue}
                         className="w-50 h-90 absolute cursor-pointer bg-white opacity-0 mt-[13rem] mr-[44.5rem]"
                     />
+
+                    {/* recycle bin */}
+                    {!binRemoved && (
+                        <button
+                            id="recycle_bin"
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                setBinRemoved(true)
+                            }}
+                            className="w-25 h-45 absolute cursor-pointer bg-white opacity-0 mt-[24.6rem] ml-[49.2rem]"
+                        />
+                    )}
+
+                    {/* red button */}
+                    {binRemoved && (
+                        <button
+                            id="red_button"
+                            onClick={toggleDialogue}
+                            className="w-8 h-13 absolute cursor-pointer bg-white opacity-0 mt-[26.9rem] ml-[57.4rem]"
+                        />
+                    )}
                 </div>
             </div>
 
