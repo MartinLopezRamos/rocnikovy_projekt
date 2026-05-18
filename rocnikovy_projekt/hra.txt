@@ -1,0 +1,18 @@
+Vysvětlění hry
+-Puzzle hra
+-Je to hra kde se uživatel snaží nalézt v posilovně tajný protein který mu dovolí nabrat moc svalů, pomáhá mu postava bolek přes dialogy
+-Ve hře se přes dialogy které se zobrazují klikáním na postavy snaží zjistit kde ten protein může být
+-Nejdříve uvidí mapu a bolek mu všechno vysvětlí a hráč bude mít přístup jenom k první oblasti a to je recepce, tam zjistí že musí zaplatit
+vstup do posilovny aby mohl dál hledat tajný protein který tam je ukrytý, na zemi tam bude bankovka takže když naní klikne tak zmizí protože ji jakože bude mít
+a pak už bude moc zaplatit vstup a jakmile ho zaplatí tak už bude moc chodit po posilovně a bude mít odemklé všechny místa v posilovně
+-hráč se bude pohybovat přes mapu různě přes lokace posilovny a bude se ptát lidí a bude číst jejich dialogy a z těch bude muset zjistit co dělat, objeví že jsou
+po posilovně rozmístěná tlačítka a tajně schovaná, jakmile je najde všechny a pokliká tak se otevře tajný vchod, ty tlačítká objeví přes dialogy, jakmile se
+otevře tajný vchod tak tam bude trezor do kterého bude muset vložit pin, a ten pin bude datum narození dcery majitele, na stole na recepci bude narozeninový
+dort s číslem 18 a pak tam zas v šatně bude kalendář s tím jaký je rok, a tak to zjistí a zadá heslo do trezoru a objeví protein a konec
+-tlačítka, jedno z tlačítek bude tam kde je kšiltovka na recepci, další bude tam kde jsou hodiny v cardio zoně, další bude v restroom na místě jednoho koše
+-to že pin je rok narození dcery majitele posilovny se dozví uživatel tak že starý muž který je jeho kamarád řekne hráči že majitel mu řekl pár let zpátky že
+si všude dává jako heslo datum narození svojí dcery
+-kouzelný protein nakonec bude jenom běžný protein
+-chci aby se progres na počítači ukládal, aby když se klikne na pokračovat aby se pokračovalo tam kde hráč naposledy skončil, stačí to uložit nějakm do úložisště
+lokálně na počítači, žádná databáze ani server není potřeba
+

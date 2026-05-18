@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Nav from "@/components/Nav"
+import Link from "next/link"
 
 export default function Home() {
     const [showDialogue, setShowDialogue] = useState(false)
@@ -19,7 +20,7 @@ export default function Home() {
             <Nav backHref="/hra" />
 
             <div className="flex-1 flex justify-center items-center mt-[-10rem]">
-                <div className="h-[40rem] w-[72rem] rounded-[2rem] ml-auto mr-6 border-blue-400 border-[0.25rem] flex justify-center items-center bg-[url('/funkcni_trenink.png')] bg-center bg-cover">
+                <div className="h-[40rem] w-[72rem] rounded-[2rem] ml-auto mr-6 border-blue-400 border-[0.25rem] flex justify-center items-center bg-[url('/funkcni_trenink_dvere.png')] bg-center bg-cover">
 
                     <button
                         id="borec_deadlift"
@@ -43,6 +44,12 @@ export default function Home() {
                         id="borec_kettlebell"
                         onClick={toggleDialogue}
                         className="w-30 h-70 absolute cursor-pointer bg-white opacity-0 mt-[12rem] mr-[15rem]"
+                    />
+
+                    <Link
+                        href="/places/secret"
+                        id="dvere"
+                        className="w-25 h-37 absolute cursor-pointer bg-white opacity-0 mb-[7.4rem] ml-[2.5rem]"
                     />
                 </div>
             </div>

@@ -6,10 +6,16 @@ import Nav from "@/components/Nav"
 
 export default function Home() {
     const [showDialogue, setShowDialogue] = useState(false)
+    const [changed, setChanged] = useState(false)
 
     const toggleDialogue = (e) => {
         e.stopPropagation()
         setShowDialogue((prev) => !prev)
+    }
+
+    const handleClick = (e) => {
+        e.stopPropagation()
+        setChanged(true)
     }
 
     return (
@@ -20,8 +26,13 @@ export default function Home() {
             <Nav backHref="/hra" />
 
             <div className="flex-1 flex justify-center items-center mt-[-10rem]">
-                <div className="h-[40rem] w-[72rem] rounded-[2rem] ml-auto mr-6 border-blue-400 border-[0.25rem] flex justify-center items-center bg-[url('/cardio_lepsi.png')] bg-center bg-cover">
-
+                <div
+                    className={`h-[40rem] w-[72rem] rounded-[2rem] ml-auto mr-6 border-blue-400 border-[0.25rem] flex justify-center items-center bg-center bg-cover ${changed
+                            ? "bg-[url('/cardio_lepsi_button.png')]"
+                            : "bg-[url('/cardio_lepsi.png')]"
+                        }`}
+                >
+                    {/* characters */}
                     <button
                         id="cardio_girl_black"
                         onClick={toggleDialogue}
@@ -57,6 +68,24 @@ export default function Home() {
                         onClick={toggleDialogue}
                         className="w-14 h-35 absolute cursor-pointer bg-white opacity-0 mb-[4.3rem] mr-[23rem]"
                     />
+
+                    {/* hodiny */}
+                    {!changed && (
+                        <button
+                            id="hodiny"
+                            onClick={handleClick}
+                            className="w-17 h-23 absolute cursor-pointer bg-white opacity-0 mb-[27.2rem] ml-[63.5rem]"
+                        />
+                    )}
+
+                    {/* red button */}
+                    {changed && (
+                        <button
+                            id="red_button"
+                            onClick={toggleDialogue}
+                            className="w-12 h-15 absolute cursor-pointer bg-white opacity-0 mb-[27.4rem] ml-[65.1rem]"
+                        />
+                    )}
                 </div>
             </div>
 
