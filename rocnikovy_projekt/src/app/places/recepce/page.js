@@ -3,15 +3,21 @@
 import { useState } from "react"
 import Nav from "@/components/Nav"
 
+const DIALOGUES = {
+    recepce_guy: { speaker: "Recepční můž", text: "Dobrý den, jak Vám mohu pomoci?" },
+    recepce_girl: { speaker: "Recepční dívka", text: "Dobrý den, můžu Vám pomoct?" },
+    red_button: { speaker: "Tlačítko", text: "stisknuto" },
+}
+
 export default function Home() {
     const [hasMoney, setHasMoney] = useState(true)
     const [hasHat, setHasHat] = useState(false)
     const [showRedButton, setShowRedButton] = useState(false)
-    const [showDialogue, setShowDialogue] = useState(false)
+    const [activeDialogue, setActiveDialogue] = useState(null)
 
-    const toggleDialogue = (e) => {
+    const openDialogue = (id) => (e) => {
         e.stopPropagation()
-        setShowDialogue((prev) => !prev)
+        setActiveDialogue(prev => prev === id ? null : id)
     }
 
     const currentBackground = () => {
@@ -29,7 +35,7 @@ export default function Home() {
     return (
         <div
             className="h-full w-full flex bg-[#071321] relative overflow-hidden"
-            onClick={() => setShowDialogue(false)}
+            onClick={() => setActiveDialogue(null)}
         >
             <Nav backHref="/hra" />
 
@@ -53,14 +59,14 @@ export default function Home() {
                     {/* recepce guy */}
                     <button
                         id="recepce_guy"
-                        onClick={toggleDialogue}
+                        onClick={openDialogue("recepce_guy")}
                         className="w-32 h-50 absolute cursor-pointer opacity-0 mb-[5.5rem] ml-[8.5rem]"
                     />
 
                     {/* recepce girl */}
                     <button
                         id="recepce_girl"
-                        onClick={toggleDialogue}
+                        onClick={openDialogue("recepce_girl")}
                         className="w-28 h-48 absolute cursor-pointer opacity-0 mb-[0rem] ml-[32rem]"
                     />
 
@@ -81,7 +87,7 @@ export default function Home() {
                     {showRedButton && (
                         <button
                             id="red_button"
-                            onClick={toggleDialogue}
+                            onClick={openDialogue("red_button")}
                             className="w-13 h-13 absolute cursor-pointer opacity-0 mt-[6rem] ml-[68rem]"
                         />
                     )}
@@ -89,17 +95,17 @@ export default function Home() {
             </div>
 
             {/* dialogue */}
-            {showDialogue && (
+            {activeDialogue && DIALOGUES[activeDialogue] && (
                 <div
                     onClick={(e) => e.stopPropagation()}
                     className="absolute left-1/2 -translate-x-1/2 bottom-[3rem] w-[72rem] h-[13rem] rounded-[1.5rem] bg-[#071321] border-blue-400 border-[0.25rem] flex flex-col justify-center ml-30 mr-6"
                 >
                     <h2 className="text-blue-400 text-[1.25rem] font-bold ml-4">
-                        Recepce
+                        {DIALOGUES[activeDialogue].speaker}
                     </h2>
 
                     <p className="text-blue-400 text-[1.4rem] ml-4 mt-1 leading-tight w-[64rem]">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        {DIALOGUES[activeDialogue].text}
                     </p>
                 </div>
             )}

@@ -15,4 +15,5 @@ si všude dává jako heslo datum narození svojí dcery
 -kouzelný protein nakonec bude jenom běžný protein
 -chci aby se progres na počítači ukládal, aby když se klikne na pokračovat aby se pokračovalo tam kde hráč naposledy skončil, stačí to uložit nějakm do úložisště
 lokálně na počítači, žádná databáze ani server není potřeba
-
+-chci aby podle id co mají buttony byl pak jiný obsah v textu který je pod oknem a text který bude říkat bolek jako pomocník nalevo, ted mluvím hlavně o
+komponentech ve složce places

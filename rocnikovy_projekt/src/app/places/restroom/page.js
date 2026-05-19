@@ -3,19 +3,36 @@
 import { useState } from "react"
 import Nav from "@/components/Nav"
 
+const DIALOGUES = {
+    michael_olise: {
+        speaker: "Michael Olise",
+        text: "Protein? Nevím, co tím myslíš. Já řeším spíš regeneraci po zápase, klid a prostor kolem sebe. Tady na záchodech je to zvláštní ticho, úplně jiné než v šatně. A upřímně, tyhle zázraky v doplňcích mě nikdy nezajímaly. Pokud něco funguje, tak je to pohyb, ne nějaké legendy o kouzelných věcech."
+    },
+
+    asian_guy: {
+        speaker: "Muž",
+        text: "Kouzelný protein? Netuším, o čem mluvíš. Já jsem jen šel na toaletu a teď přemýšlím, proč jsou tady dva koše vedle sebe, když by úplně stačil jeden. Nedává mi to žádný smysl, jako by se někdo rozhodl věci jen zdvojit bez důvodu. Celé to místo mě nějak mate, jako by tu logika nebyla úplně důležitá."
+    },
+
+    red_button: {
+        speaker: "Systém",
+        text: "stisknuto"
+    }
+};
+
 export default function Home() {
-    const [showDialogue, setShowDialogue] = useState(false)
+    const [activeDialogue, setActiveDialogue] = useState(null)
     const [binRemoved, setBinRemoved] = useState(false)
 
-    const toggleDialogue = (e) => {
+    const openDialogue = (id) => (e) => {
         e.stopPropagation()
-        setShowDialogue((prev) => !prev)
+        setActiveDialogue(prev => prev === id ? null : id)
     }
 
     return (
         <div
             className="h-full w-full flex bg-[#071321] relative overflow-hidden"
-            onClick={() => setShowDialogue(false)}
+            onClick={() => setActiveDialogue(null)}
         >
             <Nav backHref="/hra" />
 
@@ -28,13 +45,13 @@ export default function Home() {
                 >
                     <button
                         id="michael_olise"
-                        onClick={toggleDialogue}
+                        onClick={openDialogue("michael_olise")}
                         className="w-31 h-85 absolute cursor-pointer bg-white opacity-0 mt-[6rem] ml-[25.1rem]"
                     />
 
                     <button
                         id="asian_guy"
-                        onClick={toggleDialogue}
+                        onClick={openDialogue("asian_guy")}
                         className="w-50 h-90 absolute cursor-pointer bg-white opacity-0 mt-[13rem] mr-[44.5rem]"
                     />
 
@@ -54,24 +71,24 @@ export default function Home() {
                     {binRemoved && (
                         <button
                             id="red_button"
-                            onClick={toggleDialogue}
+                            onClick={openDialogue("red_button")}
                             className="w-8 h-13 absolute cursor-pointer bg-white opacity-0 mt-[26.9rem] ml-[57.4rem]"
                         />
                     )}
                 </div>
             </div>
 
-            {showDialogue && (
+            {activeDialogue && DIALOGUES[activeDialogue] && (
                 <div
                     onClick={(e) => e.stopPropagation()}
                     className="absolute left-1/2 -translate-x-1/2 bottom-[3rem] w-[72rem] h-[13rem] rounded-[1.5rem] bg-[#071321] border-blue-400 border-[0.25rem] flex flex-col justify-center ml-30 mr-6"
                 >
                     <h2 className="text-blue-400 text-[1.25rem] font-bold ml-4">
-                        Restroom
+                        {DIALOGUES[activeDialogue].speaker}
                     </h2>
 
                     <p className="text-blue-400 text-[1.4rem] ml-4 mt-1 leading-tight w-[64rem]">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        {DIALOGUES[activeDialogue].text}
                     </p>
                 </div>
             )}
