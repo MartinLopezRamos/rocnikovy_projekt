@@ -1,12 +1,15 @@
 "use client"
 import { useState } from "react"
 import Nav from "@/components/Nav"
+import { useGameState } from "@/components/GameStateContext"
 
 export default function Home() {
+    const { state, updateState } = useGameState()
     const [pinOpen, setPinOpen] = useState(false)
     const [pin, setPin] = useState("")
     const [status, setStatus] = useState("idle")
-    const [opened, setOpened] = useState(false)
+    const [opened, setOpened] = useState(state.gameCompleted)
+    const [bolekMessage, setBolekMessage] = useState(null)
 
     const handleDigit = (d) => {
         if (pin.length >= 4) return
@@ -19,6 +22,7 @@ export default function Home() {
                 if (next === "2007") {
                     setStatus("success")
                     setOpened(true)
+                    updateState({ gameCompleted: true })
 
                     setTimeout(() => {
                         setPinOpen(false)
@@ -39,7 +43,7 @@ export default function Home() {
 
     return (
         <div className="h-full w-full flex bg-[#071321] relative overflow-hidden">
-            <Nav backHref="/hra" />
+            <Nav bolekText={bolekMessage} defaultBolekOpen={!!bolekMessage} onBolekClose={() => setBolekMessage(null)} backHref="/hra" />
 
             <div className="flex-1 flex justify-center items-center mt-[-10rem]">
                 <div
@@ -60,7 +64,7 @@ export default function Home() {
                             id="trezor-opened"
                             className="w-40 h-45 absolute cursor-pointer bg-white opacity-0 mb-[2rem] ml-[1.1rem]"
                             onClick={() => {
-                                console.log("Opened treasure clicked")
+                                setBolekMessage("Počkat... to je úplně obyčejný syrovátkový protein! Žádná magie. No, aspoň jsi vyhrál hru! Gratuluji!")
                             }}
                         />
                     )}

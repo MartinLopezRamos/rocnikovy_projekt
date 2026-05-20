@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Nav from "@/components/Nav"
+import { useGameState } from "@/components/GameStateContext"
 
 const DIALOGUES = {
     cernoska: {
@@ -23,14 +24,24 @@ const DIALOGUES = {
         speaker: "Starý muž",
         text: "Protein? To je nějaká nová věc, o které nemám ani ponětí. Dřív jsme podobné věci neřešili, prostě se žilo a hotovo. Teď mám víc času přemýšlet o tom, jak se všechno změnilo, i když podstata zůstala stejná. Lidi pořád řeší to samé, jen jinými slovy."
     }
-};
+}
 
 export default function Home() {
+    const { state, updateState } = useGameState()
     const [activeDialogue, setActiveDialogue] = useState(null)
+    const [bolekMessage, setBolekMessage] = useState(null)
 
     const openDialogue = (id) => (e) => {
         e.stopPropagation()
         setActiveDialogue(prev => prev === id ? null : id)
+    }
+
+    const currentBackground = () => {
+        if (state.hasCapMoney) {
+            return "bg-[url('/skupinova_lekce.png')]"
+        }
+
+        return "bg-[url('/skupinova_lekce_penize.png')]"
     }
 
     return (
@@ -38,11 +49,12 @@ export default function Home() {
             className="h-full w-full flex bg-[#071321] relative overflow-hidden"
             onClick={() => setActiveDialogue(null)}
         >
-            <Nav backHref="/hra" />
+            <Nav bolekText={bolekMessage} defaultBolekOpen={!!bolekMessage} onBolekClose={() => setBolekMessage(null)} backHref="/hra" />
 
             <div className="flex-1 flex justify-center items-center mt-[-10rem]">
-                <div className="h-[40rem] w-[72rem] rounded-[2rem] ml-auto mr-6 border-blue-400 border-[0.25rem] flex justify-center items-center bg-[url('/skupinova_lekce.png')] bg-center bg-cover">
-
+                <div
+                    className={`h-[40rem] w-[72rem] rounded-[2rem] ml-auto mr-6 border-blue-400 border-[0.25rem] flex justify-center items-center bg-center bg-cover ${currentBackground()}`}
+                >
                     <button
                         id="cernoska"
                         onClick={openDialogue("cernoska")}
@@ -66,6 +78,18 @@ export default function Home() {
                         onClick={openDialogue("stary_muz")}
                         className="w-30 h-50 absolute cursor-pointer bg-white opacity-0 mt-[6rem] mr-[10.5rem]"
                     />
+
+                    {!state.hasCapMoney && (
+                        <button
+                            id="bankovka"
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                updateState({ hasCapMoney: true })
+                                setBolekMessage("Našel jsi nějaké peníze na zemi! Možná se budou někde hodit.")
+                            }}
+                            className="w-15 h-7 absolute cursor-pointer bg-white opacity-0 mt-[35.7rem] ml-[52rem]"
+                        />
+                    )}
                 </div>
             </div>
 

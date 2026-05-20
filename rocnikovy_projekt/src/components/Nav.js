@@ -1,21 +1,47 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
+import { useGameState } from "@/components/GameStateContext"
 
-export default function Nav({ backHref = "/" }) {
-    const [open, setOpen] = useState(false)
+export default function Nav({ backHref = "/", bolekText, defaultBolekOpen, onBolekClose }) {
+    const { state } = useGameState()
+    const [open, setOpen] = useState(defaultBolekOpen || false)
+
+    useEffect(() => {
+        if (defaultBolekOpen !== undefined) {
+            setOpen(defaultBolekOpen)
+        }
+    }, [defaultBolekOpen])
 
     const toggleBubble = (e) => {
         e.stopPropagation()
         setOpen((prev) => !prev)
+        if (open && onBolekClose) onBolekClose()
+    }
+
+    const getBolekText = () => {
+        if (bolekText) return bolekText
+        
+        if (state.secretOpened) return "Něco se pohnulo... Znělo to jako by se někde otevřely tajné dveře."
+        
+        const pressedCount = (state.buttons.recepce ? 1 : 0) + (state.buttons.cardio ? 1 : 0) + (state.buttons.restroom ? 1 : 0)
+        
+        if (!state.hasPaidEntry) return "Vítej v posilovně! Tvým úkolem je najít tajný protein. Nejdřív ale musíš jít na recepci a zaplatit vstup. Možná tam najdeš na zemi nějakou bankovku."
+        
+        if (pressedCount > 0) return "Našel jsi nějaké skryté tlačítko a zmáčkl ho! Zajímalo by mě, jestli jich tu je víc... Zkus najít další."
+        
+        return "Výborně, teď máš přístup všude. Prohledej posilovnu, zkus mluvit s lidmi, možná ti poradí, kde hledat dál."
     }
 
     return (
         <div
             className="z-[999]"
-            onClick={() => setOpen(false)}
+            onClick={() => {
+                setOpen(false)
+                if (onBolekClose) onBolekClose()
+            }}
         >
             <div className="w-full mt-10 flex items-center absolute top-0 left-0 px-10">
                 <Link
@@ -33,7 +59,6 @@ export default function Nav({ backHref = "/" }) {
                 </Link>
             </div>
 
-            {/* clickable image */}
             <div className="absolute left-0 top-0 h-full flex flex-col mt-97 pointer-events-none w-[18rem]">
                 <div className="pointer-events-auto">
                     <div
@@ -51,7 +76,6 @@ export default function Nav({ backHref = "/" }) {
                 </div>
             </div>
 
-            {/* speech bubble */}
             {open && (
                 <div
                     onClick={(e) => e.stopPropagation()}
@@ -64,7 +88,7 @@ before:border-l-[1rem] before:border-r-[1rem] before:border-t-[1.2rem] before:bo
                     </h2>
 
                     <p className="text-blue-400 text-[1.4rem] ml-4 mt-1 leading-tight w-[40rem]">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        {getBolekText()}
                     </p>
                 </div>
             )}
