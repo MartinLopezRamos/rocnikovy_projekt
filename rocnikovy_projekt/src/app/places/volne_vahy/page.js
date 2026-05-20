@@ -5,7 +5,7 @@ import Nav from "@/components/Nav"
 
 const DIALOGUES = {
     cardio_holka: {
-        speaker: "Holka",
+        speaker: "Svalovec",
         text: "Hele, co tady řešíš? Kouzelný protein? Zvedám tady těžký váhy a ty sem přijdeš s tímhle? Soustřeď se na něco normálního nebo aspoň neruš lidi co makaj."
     },
 

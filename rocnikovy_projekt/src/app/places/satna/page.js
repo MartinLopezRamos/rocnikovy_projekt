@@ -22,7 +22,7 @@ const DIALOGUES = {
 
     kalendar: {
         speaker: "Kalendář",
-        text: "05.19.2025"
+        text: "05.10.2025"
     }
 }
 
