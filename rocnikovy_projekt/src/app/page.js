@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useGameState } from "@/components/GameStateContext";
 
 const menuItems = [
   { id: "new", label: "Nová hra", icon: "⚔", description: "Začni své dobrodružství" },
@@ -9,6 +10,8 @@ const menuItems = [
 ];
 
 export default function Home() {
+  const { resetState, state } = useGameState();
+  const hasStarted = state.hasEntryBanknote || state.hasPaidEntry || state.hasCapMoney || state.hasMetChineseGuy || state.buttons.recepce || state.buttons.cardio || state.buttons.restroom;
   const [selected, setSelected] = useState(0);
   const [visible, setVisible] = useState(false);
   const [particles, setParticles] = useState([]);
@@ -70,16 +73,32 @@ export default function Home() {
 
         <nav className="flex flex-col gap-1.5 w-72">
           {menuItems.map((item, i) => {
-            const active = selected === i;
+            const isContinue = item.id === "continue";
+            const disabled = isContinue && !hasStarted;
+            const active = selected === i && !disabled;
+            
+            let href = "/hra";
+            if (disabled) href = "#";
+            if (item.id === "settings") href = "/jak-hrat";
+
             return (
-              <Link href="/hra"
+              <Link href={href}
                 key={item.id}
                 className={`relative flex items-center gap-4 px-6 py-3.5 text-left w-full transition-all duration-200 border ${active
                   ? "border-yellow-700/40 bg-gradient-to-r from-yellow-900/20 to-transparent"
                   : "border-transparent"
-                  }`}
-                onMouseEnter={() => setSelected(i)}
-                onClick={() => setSelected(i)}
+                  } ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
+                onMouseEnter={() => { if (!disabled) setSelected(i) }}
+                onClick={(e) => {
+                  if (disabled) {
+                    e.preventDefault();
+                    return;
+                  }
+                  setSelected(i)
+                  if (item.id === "new") {
+                    resetState()
+                  }
+                }}
               >
                 <div
                   className={`absolute left-0 top-1/2 -translate-y-1/2 w-0.5 transition-all duration-300 ${active ? "h-3/5 opacity-100" : "h-0 opacity-0"}`}
@@ -98,7 +117,7 @@ export default function Home() {
                     {item.label}
                   </span>
                   <span className={`italic text-[0.6875rem] tracking-wide transition-all duration-200 ${active ? "text-yellow-800" : "text-transparent"}`}>
-                    {item.description}
+                    {disabled ? "Žádná uložená hra" : item.description}
                   </span>
                 </div>
 

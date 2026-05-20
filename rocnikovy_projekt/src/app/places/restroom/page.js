@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Nav from "@/components/Nav"
+import { useGameState } from "@/components/GameStateContext"
 
 const DIALOGUES = {
     michael_olise: {
@@ -20,9 +21,11 @@ const DIALOGUES = {
     }
 };
 
+
+
 export default function Home() {
+    const { state, updateState } = useGameState()
     const [activeDialogue, setActiveDialogue] = useState(null)
-    const [binRemoved, setBinRemoved] = useState(false)
 
     const openDialogue = (id) => (e) => {
         e.stopPropagation()
@@ -38,7 +41,7 @@ export default function Home() {
 
             <div className="flex-1 flex justify-center items-center mt-[-10rem]">
                 <div
-                    className={`h-[40rem] w-[72rem] rounded-[2rem] ml-auto mr-6 border-blue-400 border-[0.25rem] flex justify-center items-center bg-center bg-cover ${binRemoved
+                    className={`h-[40rem] w-[72rem] rounded-[2rem] ml-auto mr-6 border-blue-400 border-[0.25rem] flex justify-center items-center bg-center bg-cover ${state.restroomBinRemoved
                         ? "bg-[url('/restroom_changed.png')]"
                         : "bg-[url('/restroom.png')]"
                         }`}
@@ -55,23 +58,25 @@ export default function Home() {
                         className="w-50 h-90 absolute cursor-pointer bg-white opacity-0 mt-[13rem] mr-[44.5rem]"
                     />
 
-                    {/* recycle bin */}
-                    {!binRemoved && (
+                    {!state.restroomBinRemoved && (
                         <button
                             id="recycle_bin"
                             onClick={(e) => {
                                 e.stopPropagation()
-                                setBinRemoved(true)
+                                updateState({ restroomBinRemoved: true })
                             }}
                             className="w-25 h-45 absolute cursor-pointer bg-white opacity-0 mt-[24.6rem] ml-[49.2rem]"
                         />
                     )}
 
-                    {/* red button */}
-                    {binRemoved && (
+                    {state.restroomBinRemoved && !state.buttons.restroom && (
                         <button
                             id="red_button"
-                            onClick={openDialogue("red_button")}
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                updateState({ buttons: { ...state.buttons, restroom: true } })
+                                setActiveDialogue("red_button")
+                            }}
                             className="w-8 h-13 absolute cursor-pointer bg-white opacity-0 mt-[26.9rem] ml-[57.4rem]"
                         />
                     )}

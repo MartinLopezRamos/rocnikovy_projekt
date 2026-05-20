@@ -2,18 +2,20 @@
 
 import { useState } from "react"
 import Nav from "@/components/Nav"
+import { useGameState } from "@/components/GameStateContext"
 
 const DIALOGUES = {
-    recepce_guy: { speaker: "Recepční můž", text: "Dobrý den, jak Vám mohu pomoci?" },
-    recepce_girl: { speaker: "Recepční dívka", text: "Dobrý den, můžu Vám pomoct?" },
+    recepce_guy: { speaker: "Recepční muž", text: "Dobrý den, pro vstup do posilovny musíte zaplatit." },
+    recepce_girl: { speaker: "Recepční dívka", text: "Dobrý den, abyste mohl vstoupit do posilovny, musíte zaplatit." },
+    recepce_guy_paid: { speaker: "Recepční muž", text: "Díky za platbu! Užijte si trénink, můžete jít dál." },
+    recepce_girl_paid: { speaker: "Recepční dívka", text: "Platba proběhla v pořádku. Skříňky jsou volné, běžte cvičit!" },
     red_button: { speaker: "Tlačítko", text: "stisknuto" },
 }
 
 export default function Home() {
-    const [hasMoney, setHasMoney] = useState(true)
-    const [hasHat, setHasHat] = useState(false)
-    const [showRedButton, setShowRedButton] = useState(false)
+    const { state, updateState } = useGameState()
     const [activeDialogue, setActiveDialogue] = useState(null)
+    const [bolekMessage, setBolekMessage] = useState(null)
 
     const openDialogue = (id) => (e) => {
         e.stopPropagation()
@@ -21,11 +23,11 @@ export default function Home() {
     }
 
     const currentBackground = () => {
-        if (showRedButton) {
+        if (state.buttons.recepce || state.hasCap) {
             return "bg-[url('/no_money_narozky_button.png')]"
         }
 
-        if (hasMoney) {
+        if (!state.hasEntryBanknote) {
             return "bg-[url('/money_narozky.png')]"
         }
 
@@ -37,64 +39,85 @@ export default function Home() {
             className="h-full w-full flex bg-[#071321] relative overflow-hidden"
             onClick={() => setActiveDialogue(null)}
         >
-            <Nav backHref="/hra" />
+            <Nav bolekText={bolekMessage} defaultBolekOpen={!!bolekMessage} onBolekClose={() => setBolekMessage(null)} backHref="/hra" />
 
             <div className="flex-1 flex justify-center items-center mt-[-10rem]">
                 <div
                     className={`h-[40rem] w-[72rem] rounded-[2rem] ml-auto mr-6 border-blue-400 border-[0.25rem] flex justify-center items-center bg-center bg-cover ${currentBackground()}`}
                 >
-                    {/* bankovka */}
-                    {hasMoney && (
+                    {!state.hasEntryBanknote && (
                         <button
                             id="bankovka"
                             onClick={(e) => {
                                 e.stopPropagation()
-                                setHasMoney(false)
-                                setHasHat(true)
+                                updateState({ hasEntryBanknote: true })
                             }}
                             className="w-21 h-10 absolute cursor-pointer opacity-0 mt-[18.9rem] mr-[44.7rem]"
                         />
                     )}
 
-                    {/* recepce guy */}
                     <button
                         id="recepce_guy"
-                        onClick={openDialogue("recepce_guy")}
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            if (state.hasEntryBanknote && !state.hasPaidEntry) {
+                                updateState({ hasPaidEntry: true })
+                                setBolekMessage("Paráda, zaplatil jsi vstup. Můžeme jít prohledat zbytek posilovny!")
+                            } else if (state.hasPaidEntry) {
+                                setActiveDialogue(prev => prev === "recepce_guy_paid" ? null : "recepce_guy_paid")
+                            } else {
+                                setActiveDialogue(prev => prev === "recepce_guy" ? null : "recepce_guy")
+                            }
+                        }}
                         className="w-32 h-50 absolute cursor-pointer opacity-0 mb-[5.5rem] ml-[8.5rem]"
                     />
 
-                    {/* recepce girl */}
                     <button
                         id="recepce_girl"
-                        onClick={openDialogue("recepce_girl")}
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            if (state.hasEntryBanknote && !state.hasPaidEntry) {
+                                updateState({ hasPaidEntry: true })
+                                setBolekMessage("Paráda, zaplatil jsi vstup. Můžeme jít prohledat zbytek posilovny!")
+                            } else if (state.hasPaidEntry) {
+                                setActiveDialogue(prev => prev === "recepce_girl_paid" ? null : "recepce_girl_paid")
+                            } else {
+                                setActiveDialogue(prev => prev === "recepce_girl" ? null : "recepce_girl")
+                            }
+                        }}
                         className="w-28 h-48 absolute cursor-pointer opacity-0 mb-[0rem] ml-[32rem]"
                     />
 
-                    {/* cepice */}
-                    {hasHat && !showRedButton && (
+                    {!state.hasCap && (
                         <button
                             id="cepice"
                             onClick={(e) => {
                                 e.stopPropagation()
-                                setHasHat(false)
-                                setShowRedButton(true)
+                                if (state.hasCapMoney) {
+                                    updateState({ hasCap: true })
+                                    setBolekMessage("Koupil jsi kšiltovku! Podívej, pod ní něco bylo.")
+                                } else {
+                                    setBolekMessage("Na to nemáš peníze! Musíš někde najít další.")
+                                }
                             }}
                             className="w-17 h-17 absolute cursor-pointer opacity-0 mt-[5rem] ml-[67rem]"
                         />
                     )}
 
-                    {/* red button */}
-                    {showRedButton && (
+                    {state.hasCap && !state.buttons.recepce && (
                         <button
                             id="red_button"
-                            onClick={openDialogue("red_button")}
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                updateState({ buttons: { ...state.buttons, recepce: true } })
+                                setActiveDialogue("red_button")
+                            }}
                             className="w-13 h-13 absolute cursor-pointer opacity-0 mt-[6rem] ml-[68rem]"
                         />
                     )}
                 </div>
             </div>
 
-            {/* dialogue */}
             {activeDialogue && DIALOGUES[activeDialogue] && (
                 <div
                     onClick={(e) => e.stopPropagation()}

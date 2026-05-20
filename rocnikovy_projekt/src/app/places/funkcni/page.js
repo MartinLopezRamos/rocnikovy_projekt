@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Nav from "@/components/Nav"
 import Link from "next/link"
+import { useGameState } from "@/components/GameStateContext"
 
 const DIALOGUES = {
     borec_deadlift: {
@@ -27,7 +28,9 @@ const DIALOGUES = {
 };
 
 export default function Home() {
+    const { state } = useGameState()
     const [activeDialogue, setActiveDialogue] = useState(null)
+    const [bolekMessage, setBolekMessage] = useState(null)
 
     const openDialogue = (id) => (e) => {
         e.stopPropagation()
@@ -39,10 +42,10 @@ export default function Home() {
             className="h-full w-full flex bg-[#071321] relative overflow-hidden"
             onClick={() => setActiveDialogue(null)}
         >
-            <Nav backHref="/hra" />
+            <Nav bolekText={bolekMessage} defaultBolekOpen={!!bolekMessage} onBolekClose={() => setBolekMessage(null)} backHref="/hra" />
 
             <div className="flex-1 flex justify-center items-center mt-[-10rem]">
-                <div className="h-[40rem] w-[72rem] rounded-[2rem] ml-auto mr-6 border-blue-400 border-[0.25rem] flex justify-center items-center bg-[url('/funkcni_trenink.png')] bg-center bg-cover">
+                <div className={`h-[40rem] w-[72rem] rounded-[2rem] ml-auto mr-6 border-blue-400 border-[0.25rem] flex justify-center items-center bg-center bg-cover ${state.secretOpened ? "bg-[url('/funkcni_trenink_dvere.png')]" : "bg-[url('/funkcni_trenink.png')]"}`}>
 
                     <button
                         id="borec_deadlift"
@@ -68,11 +71,13 @@ export default function Home() {
                         className="w-30 h-70 absolute cursor-pointer bg-white opacity-0 mt-[12rem] mr-[15rem]"
                     />
 
-                    <Link
-                        href="/places/secret"
-                        id="dvere"
-                        className="w-25 h-37 absolute cursor-pointer bg-white opacity-0 mb-[7.4rem] ml-[2.5rem]"
-                    />
+                    {state.secretOpened && (
+                        <Link
+                            href="/places/secret"
+                            id="dvere"
+                            className="w-25 h-37 absolute cursor-pointer bg-white opacity-0 mb-[7.4rem] ml-[2.5rem]"
+                        />
+                    )}
                 </div>
             </div>
 

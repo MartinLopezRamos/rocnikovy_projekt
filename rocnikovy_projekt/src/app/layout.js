@@ -2,6 +2,7 @@ import "./globals.css";
 import { Cinzel } from "next/font/google";
 import Preloader from "../components/Preloader";
 import ResponsiveWrapper from "../components/ResponsiveWrapper";
+import { GameStateProvider } from "../components/GameStateContext";
 
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -21,11 +22,13 @@ export default function RootLayout({ children }) {
       className={`${cinzel.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[#050810]">
-        <Preloader>
-          <ResponsiveWrapper>
-            {children}
-          </ResponsiveWrapper>
-        </Preloader>
+        <GameStateProvider>
+          <Preloader>
+            <ResponsiveWrapper>
+              {children}
+            </ResponsiveWrapper>
+          </Preloader>
+        </GameStateProvider>
       </body>
     </html>
   );

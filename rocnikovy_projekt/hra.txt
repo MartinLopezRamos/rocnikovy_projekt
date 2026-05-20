@@ -17,3 +17,6 @@ si všude dává jako heslo datum narození svojí dcery
 lokálně na počítači, žádná databáze ani server není potřeba
 -chci aby podle id co mají buttony byl pak jiný obsah v textu který je pod oknem a text který bude říkat bolek jako pomocník nalevo, ted mluvím hlavně o
 komponentech ve složce places
+-jedna z postav v oblasti cardio bude mluvit čínsky, bolek napoví hráči že musí najít někoho s mobilem kdo by jim to přeložil, mladý kluk v oblasti satna bude mít
+mobil a bude jediný ochodný pomoc uživatelovi nebo teda hráči a přeloží mu to, ta zpráva bude říkat že musí koupit kšilovku na recepci, aby jí koupil bude
+potřebovat peníze které jsou v oblasti skupinova, jakmile koupi ksiltovku tak objeví pod ní tlačítko

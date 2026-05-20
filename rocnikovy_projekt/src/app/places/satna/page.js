@@ -2,11 +2,17 @@
 
 import { useState } from "react"
 import Nav from "@/components/Nav"
+import { useGameState } from "@/components/GameStateContext"
 
 const DIALOGUES = {
     mlady_borec: {
         speaker: "Mladý borec",
         text: "Kouzelný protein? Co to meleš? Tady se řeší jen trénink, ne nějaký pohádky. Jestli hledáš odpovědi, tak špatně."
+    },
+
+    mlady_borec_translate: {
+        speaker: "Mladý borec",
+        text: "Jo, počkej, hodím to do překladače... Říká to něco jako 'Musíš koupit kšiltovku na recepci'. Divný, ne?"
     },
 
     stary_borec: {
@@ -18,9 +24,12 @@ const DIALOGUES = {
         speaker: "Kalendář",
         text: "05.19.2025"
     }
-};
+}
+
+
 
 export default function Home() {
+    const { state, updateState } = useGameState()
     const [activeDialogue, setActiveDialogue] = useState(null)
 
     const openDialogue = (id) => (e) => {
@@ -40,7 +49,15 @@ export default function Home() {
 
                     <button
                         id="mlady_borec"
-                        onClick={openDialogue("mlady_borec")}
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            if (state.hasMetChineseGuy) {
+                                if (!state.translated) updateState({ translated: true })
+                                setActiveDialogue(prev => prev === "mlady_borec_translate" ? null : "mlady_borec_translate")
+                            } else {
+                                setActiveDialogue(prev => prev === "mlady_borec" ? null : "mlady_borec")
+                            }
+                        }}
                         className="w-20 h-45 absolute cursor-pointer bg-white opacity-0 mt-[5.5rem] ml-[22rem]"
                     />
 

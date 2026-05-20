@@ -2,11 +2,12 @@
 
 import { useState } from "react"
 import Nav from "@/components/Nav"
+import { useGameState } from "@/components/GameStateContext"
 
 const DIALOGUES = {
     cardio_girl_black: {
         speaker: "Černoška",
-        text: "Kouzelný protein? O ničem takovém nevím. Nekoukej tak, soustřeď se na sebe a neruš ostatní v cardio zóně."
+        text: "Kouzelný protein? O ničem takovém nevím. Jdi rači pryč a neotravuj, s ničím ti nehodlám pomoct."
     },
 
     cardio_guy_black: {
@@ -41,17 +42,22 @@ const DIALOGUES = {
 };
 
 export default function Home() {
+    const { state, updateState } = useGameState()
     const [activeDialogue, setActiveDialogue] = useState(null)
-    const [changed, setChanged] = useState(false)
+    const [bolekMessage, setBolekMessage] = useState(null)
 
     const openDialogue = (id) => (e) => {
         e.stopPropagation()
         setActiveDialogue(prev => prev === id ? null : id)
+        if (id === "cardio_guy_asian") {
+            updateState({ hasMetChineseGuy: true })
+            setBolekMessage("To je čínsky! Nerozumím mu. Najdi někoho s mobilem, kdo by nám to přeložil.")
+        }
     }
 
     const handleClick = (e) => {
         e.stopPropagation()
-        setChanged(true)
+        updateState({ cardioClockRemoved: true })
     }
 
     return (
@@ -59,16 +65,15 @@ export default function Home() {
             className="h-full w-full flex bg-[#071321] relative overflow-hidden"
             onClick={() => setActiveDialogue(null)}
         >
-            <Nav backHref="/hra" />
+            <Nav bolekText={bolekMessage} defaultBolekOpen={!!bolekMessage} onBolekClose={() => setBolekMessage(null)} backHref="/hra" />
 
             <div className="flex-1 flex justify-center items-center mt-[-10rem]">
                 <div
-                    className={`h-[40rem] w-[72rem] rounded-[2rem] ml-auto mr-6 border-blue-400 border-[0.25rem] flex justify-center items-center bg-center bg-cover ${changed
-                            ? "bg-[url('/cardio_lepsi_button.png')]"
-                            : "bg-[url('/cardio_lepsi.png')]"
+                    className={`h-[40rem] w-[72rem] rounded-[2rem] ml-auto mr-6 border-blue-400 border-[0.25rem] flex justify-center items-center bg-center bg-cover ${state.cardioClockRemoved
+                        ? "bg-[url('/cardio_lepsi_button.png')]"
+                        : "bg-[url('/cardio_lepsi.png')]"
                         }`}
                 >
-                    {/* characters */}
                     <button
                         id="cardio_girl_black"
                         onClick={openDialogue("cardio_girl_black")}
@@ -105,8 +110,7 @@ export default function Home() {
                         className="w-14 h-35 absolute cursor-pointer bg-white opacity-0 mb-[4.3rem] mr-[23rem]"
                     />
 
-                    {/* hodiny */}
-                    {!changed && (
+                    {!state.cardioClockRemoved && (
                         <button
                             id="hodiny"
                             onClick={handleClick}
@@ -114,11 +118,14 @@ export default function Home() {
                         />
                     )}
 
-                    {/* red button */}
-                    {changed && (
+                    {state.cardioClockRemoved && !state.buttons.cardio && (
                         <button
                             id="red_button"
-                            onClick={openDialogue("red_button")}
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                updateState({ buttons: { ...state.buttons, cardio: true } })
+                                setActiveDialogue("red_button")
+                            }}
                             className="w-12 h-15 absolute cursor-pointer bg-white opacity-0 mb-[27.4rem] ml-[65.1rem]"
                         />
                     )}
