@@ -17,7 +17,7 @@ const DIALOGUES = {
 
     stary_borec: {
         speaker: "Starý borec",
-        text: "[telefon] Nedávej si jako heslo svoje datum narození… to je první věc, co zkouší každej. [/telefon] Hej, neruš mě, vidíš že telefonuju. Co chceš, to si vyřeš jinde."
+        text: "[telefon] Nedávej si jako heslo svoje datum narození… to je první věc, co zkouší každej. [telefon] Hej, neruš mě, vidíš že telefonuju. Co chceš, to si vyřeš jinde."
     },
 
     kalendar: {

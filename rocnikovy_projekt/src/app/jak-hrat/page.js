@@ -52,13 +52,10 @@ export default function HowToPlay() {
             Cílem hry je najít bájný <strong>Kouzelný protein</strong>, o kterém kolují legendy. Budeš ale muset prohledat celou posilovnu!
           </p>
           <p>
-            Všímej si detailů, prozkoumávej jednotlivé místnosti a hlavně – <strong className="text-yellow-400">klikej na lidi a na předměty</strong>. Mnohé skrývají nápovědy, podivná tlačítka nebo užitečné věci, které ti pomohou se dostat dál. 
-          </p>
-          <p>
             Vše se ovládá pouhým klikáním myší. Postup se ukládá automaticky, takže se můžeš kdykoliv vrátit pomocí tlačítka <em>Pokračovat</em> v hlavním menu. Krok zpět nebo návrat na mapu uděláš vždy zlatou šipkou v levém horním rohu.
           </p>
           <p className="pt-6 text-yellow-500/70 text-sm">
-            Hodně štěstí a hlavně ať to roste!
+            Hodně štěstí!
           </p>
         </div>
       </div>
