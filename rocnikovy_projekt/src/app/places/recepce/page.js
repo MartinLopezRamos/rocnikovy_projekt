@@ -88,7 +88,7 @@ export default function Home() {
                         className="w-28 h-48 absolute cursor-pointer opacity-0 mb-[0rem] ml-[32rem]"
                     />
 
-                    {!state.hasCap && (
+                    {state.translated && !state.hasCap && (
                         <button
                             id="cepice"
                             onClick={(e) => {

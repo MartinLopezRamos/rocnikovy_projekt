@@ -1,15 +1,18 @@
 "use client"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import Nav from "@/components/Nav"
 import { useGameState } from "@/components/GameStateContext"
 
 export default function Home() {
+    const router = useRouter()
     const { state, updateState } = useGameState()
     const [pinOpen, setPinOpen] = useState(false)
     const [pin, setPin] = useState("")
     const [status, setStatus] = useState("idle")
     const [opened, setOpened] = useState(state.gameCompleted)
     const [bolekMessage, setBolekMessage] = useState(null)
+    const [proteinClicked, setProteinClicked] = useState(false)
 
     const handleDigit = (d) => {
         if (pin.length >= 4) return
@@ -49,7 +52,7 @@ export default function Home() {
                 <div
                     className="h-[40rem] w-[72rem] ml-auto mr-6 border-blue-400 border-[0.25rem] flex justify-center items-center bg-center bg-cover relative"
                     style={{
-                        backgroundImage: `url('${opened ? "/trezor_opened.png" : "/trezor.png"}')`
+                        backgroundImage: `url('${opened ? "/trezor_opened.png" : "/trezor.jpeg"}')`
                     }}
                 >
 
@@ -64,7 +67,12 @@ export default function Home() {
                             id="trezor-opened"
                             className="w-40 h-45 absolute cursor-pointer bg-white opacity-0 mb-[2rem] ml-[1.1rem]"
                             onClick={() => {
-                                setBolekMessage("Počkat... to je úplně obyčejný syrovátkový protein! Žádná magie. No, aspoň jsi vyhrál hru! Gratuluji!")
+                                if (proteinClicked) {
+                                    router.push("/konec")
+                                } else {
+                                    setProteinClicked(true)
+                                    setBolekMessage("Počkat... To je ten magický protein! Vyhrál jsi hru! Gratuluji!")
+                                }
                             }}
                         />
                     )}

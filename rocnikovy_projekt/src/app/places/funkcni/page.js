@@ -45,7 +45,7 @@ export default function Home() {
             <Nav bolekText={bolekMessage} defaultBolekOpen={!!bolekMessage} onBolekClose={() => setBolekMessage(null)} backHref="/hra" />
 
             <div className="flex-1 flex justify-center items-center mt-[-10rem]">
-                <div className={`h-[40rem] w-[72rem] rounded-[2rem] ml-auto mr-6 border-blue-400 border-[0.25rem] flex justify-center items-center bg-center bg-cover ${state.secretOpened ? "bg-[url('/funkcni_trenink_dvere.png')]" : "bg-[url('/funkcni_trenink.png')]"}`}>
+                <div className={`h-[40rem] w-[72rem] rounded-[2rem] ml-auto mr-6 border-blue-400 border-[0.25rem] flex justify-center items-center bg-center bg-cover ${state.secretOpened ? "bg-[url('/funkcni_trenink_dvere.png')]" : "bg-[url('/funkcni_trenink_lepsi.jpg')]"}`}>
 
                     <button
                         id="borec_deadlift"
