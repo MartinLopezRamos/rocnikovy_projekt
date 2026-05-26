@@ -28,7 +28,7 @@ export default function Nav({ backHref = "/", bolekText, defaultBolekOpen, onBol
         
         const pressedCount = (state.buttons.recepce ? 1 : 0) + (state.buttons.cardio ? 1 : 0) + (state.buttons.restroom ? 1 : 0)
         
-        if (!state.hasPaidEntry) return "Vítej v posilovně! Tvým úkolem je najít tajný protein. Nejdřív ale musíš jít na recepci a zaplatit vstup. Možná tam najdeš na zemi nějakou bankovku."
+        if (!state.hasPaidEntry) return "Vítej v posilovně! Tvým úkolem je najít tajný protein."
         
         if (pressedCount > 0) return "Našel jsi nějaké skryté tlačítko a zmáčkl ho! Zajímalo by mě, jestli jich tu je víc... Zkus najít další."
         
