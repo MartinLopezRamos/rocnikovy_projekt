@@ -47,22 +47,10 @@ Hra funguje na podobném principu jako klasické point-and-click adventury:
 
 ---
 
-## 📁 Struktura projektu
-
-- `app/` – stránky a routing (Next.js)
-- `components/` – znovupoužitelné React komponenty
-- `styles/` – Tailwind
-- `public/` – obrázky a statické soubory
-
----
-
 ## Změny provedéné 15.04.2026
 - Vytvoření základů mapy
 - Vytvoření základní animace
 - + další drobné úpravy
 
-## ▶️ Spuštění projektu
-
-```bash
-npm install
-npm run dev
+## Odkaz na hru
+https://mozkyjakohouby.vercel.app/
